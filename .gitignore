@@ -1,0 +1,11 @@
+# Depedencies and builds
+.dart_tool/
+.packages
+.pub/
+build/
+pubspec.lock
+doc/api/
+
+# IDE and Mac
+.idea/
+.DS_Store
