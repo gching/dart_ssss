@@ -7,9 +7,9 @@ dart:
 dart_task:
 - test
 - dartanalyzer: --fatal-warnings lib
-- dartfmt: true
+- dartfmt
 
 matrix:
   exclude:
   - dart: dev
-    dartfmt: true
+    dartfmt
