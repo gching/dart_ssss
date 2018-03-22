@@ -1,7 +1,7 @@
 # dart_ssss 
 
 [![Build Status](https://travis-ci.org/gching/dart_ssss.svg?branch=master)](https://travis-ci.org/gching/dart_ssss)
-
+[![Coverage Status](https://coveralls.io/repos/github/gching/dart_ssss/badge.svg?branch=master)](https://coveralls.io/github/gching/dart_ssss?branch=master)
 
 A Dart library that implements [Shamir's Secret Sharing Scheme](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing) 
 over [GF(256)](http://www.cs.utsa.edu/~wagner/laws/FFM.html).
