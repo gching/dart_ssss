@@ -1,5 +1,5 @@
 /**
- * byte_helper.dart
+ * byte_helper_test.dart
  *
  * Copyright 2018 Gavin Ching
  *
@@ -42,6 +42,12 @@ void main() {
 
       expect(ByteHelper.isListAllBytes(bytes), isTrue);
       expect(ByteHelper.isListAllBytes(notBytes), isFalse);
+    });
+  });
+
+  group('Random generation', () {
+    test('Should throw if generator is null', () {
+      expect(() => ByteHelper.generateRandomByte(null), throwsArgumentError);
     });
   });
 }

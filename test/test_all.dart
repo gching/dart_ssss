@@ -26,7 +26,7 @@ import 'byte_polynomial_test.dart' as byte_polynomial;
 import 'gf_256_test.dart' as gf_256;
 import 'lagrange_interpolation_test.dart' as lagrange_interpolation;
 import 'secret_scheme_test.dart' as secret_scheme;
-import 'utils/byte_helper.dart' as byte_helper;
+import 'utils/byte_helper_test.dart' as byte_helper;
 
 void main() {
   byte_polynomial.main();

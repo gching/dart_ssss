@@ -87,7 +87,7 @@ void main() {
     BytePolynomial _oneDegreePoly = new BytePolynomial(1);
     Random secure = new Random.secure();
 
-    test('Should throw an error if the arguements are note byte or null', () {
+    test('Should throw an error if the arguements are not byte or null', () {
       expect(() => _zeroDegreePoly.generateCoefficientsDangerously(-1, secure),
           throwsArgumentError);
       expect(() => _zeroDegreePoly.generateCoefficientsDangerously(5, null),
@@ -118,6 +118,11 @@ void main() {
     test('Should throw given a bad x coordinate', () {
       expect(() => _poly.evaluateAtX(-1), throwsArgumentError);
     });
+    
+    test('Should throw if not generated', () {
+      _poly = new BytePolynomial(5);
+      expect(() => _poly.evaluateAtX(5), throwsA(NotGeneratedException));
+    }, skip: 'Testing custom exception are still janky.');
 
     test('Should throw given that coefficients have not been generated', () {
       BytePolynomial _badPoly = new BytePolynomial(0);

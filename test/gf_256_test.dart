@@ -65,4 +65,10 @@ void main() {
       expect(GF256.divide(0, 192), equals(0));
     });
   });
+
+  group('Throw on not byte', () {
+    test('Should throw if the value is not a byte', () {
+      expect(() => GF256.throwIfNotUnsignedByte(-1), throwsArgumentError);
+    });
+  });
 }
