@@ -14,6 +14,19 @@ Scheme.
 
 ## Getting Started
 
+To use dart_ssss, add it to your dependencies in `pubspec.yaml`:
+
+```
+dependencies:
+    dart_ssss: any
+```
+
+Then import the proper package:
+
+```
+import 'package:dart_ssss/dart_ssss.dart';
+```
+
 
 ## Usage 
 
