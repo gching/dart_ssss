@@ -30,17 +30,28 @@ To generate shares / parts for a secret of bytes:
      
 ```
 
-To combine shares to regernate a secret:
+To combine shares to regenerate a secret:
 
 ```
         List<int> recombinedSecretInBytes = ss.combineShares(shares);
     }
 ```
 
+## Tests
+
+To run tests on this package:
+
+```
+    pub run test 
+```
+
+in the package directory.
+
+
 ## Limitations / Caveats
 
-Given that the package is implemented over GF(256), it means that the max number of shares / parts it can generate is
-255. With that said, it is not advisable to generate 255 shares / parts as an adversary can 
+Given that the package is implemented over GF(256), it means that the max number of shares / parts it can generate is 
+`255`. With that said, it is not advisable to generate `255` shares / parts as an adversary can 
 [forge a secret](https://crypto.stackexchange.com/questions/54578/how-to-forge-a-shamir-secret-share).    
 
 Shamir's Secret Sharing Scheme does not guarantee integrity, so if you are looking for something where you can verify
@@ -48,6 +59,11 @@ shares or the resulting secret, this package is not for you.
 
 ## License
 
-Please file feature requests and bugs at the [issue tracker][tracker].
+Copyright 2018 Gavin Ching
 
-[tracker]: http://example.com/issues/replaceme
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
