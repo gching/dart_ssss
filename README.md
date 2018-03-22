@@ -17,24 +17,24 @@ Scheme.
 To generate shares / parts for a secret of bytes:
 
 ```
-     void main() {
-        
-        List<int> secretInByteValues = [...];
-        
-        SecretScheme ss = new SecretScheme(numberOfPartsToGenerate, thresholdForJoining);
-        
-        Map<int, List<int>> shares = ss.createShares(secretInByteValues);
-        
-        ...
-          
+void main() {
+    
+    List<int> secretInByteValues = [...];
+    
+    SecretScheme ss = new SecretScheme(numberOfPartsToGenerate, thresholdForJoining);
+    
+    Map<int, List<int>> shares = ss.createShares(secretInByteValues);
+    
+    ...
+      
      
 ```
 
 To combine shares to regenerate a secret:
 
 ```
-        List<int> recombinedSecretInBytes = ss.combineShares(shares);
-    }
+    List<int> recombinedSecretInBytes = ss.combineShares(shares);
+}
 ```
 
 ## Tests
