@@ -8,3 +8,8 @@ dart_task:
 - test
 - dartanalyzer: --fatal-warnings lib
 - dartfmt
+
+matrix:
+  exclude:
+  - dart: dev
+  - dartfmt
