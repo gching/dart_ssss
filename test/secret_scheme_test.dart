@@ -47,7 +47,6 @@ void main() {
   Map<int, List<int>> shares = ss.createShares(secret);
 
   group('Creating shares for secret', () {
-
     test('Should throw with bad secret', () {
       expect(() => ss.createShares(new List()), throwsArgumentError);
       expect(() => ss.createShares([256]), throwsArgumentError);
@@ -58,15 +57,13 @@ void main() {
     });
 
     test('Should have the correct length of values in a share', () {
-      for(List<int> share in shares.values) {
+      for (List<int> share in shares.values) {
         expect(share.length, equals(secret.length));
       }
     });
-
   });
 
   group('Joining secret', () {
-
     test('Should throw with bad shares', () {
       Map<int, List<int>> empty = new HashMap();
       Map<int, List<int>> badXVal = new HashMap();
@@ -87,18 +84,17 @@ void main() {
       badYVal[5] = [5];
       badYVal[6] = [1, 2];
       expect(() => ss.combineShares(badYVal), throwsArgumentError);
-
     });
-
 
     test('Should have retrieved the original secret with all shares', () {
       List<int> retrievedSecret = ss.combineShares(shares);
       expect(secret, equals(retrievedSecret));
     });
 
-    test('Should be able to retrieve the secret if we remove one more share', () {
+    test('Should be able to retrieve the secret if we remove one more share',
+        () {
       int lastX = 0;
-      for (int x in shares.keys){
+      for (int x in shares.keys) {
         lastX = x;
       }
 
@@ -106,12 +102,11 @@ void main() {
 
       List<int> retrievedSecret = ss.combineShares(shares);
       expect(secret, equals(retrievedSecret));
-
     });
 
     test('Should not be able to regenerate if we are below threshold', () {
       int lastX = 0;
-      for (int x in shares.keys){
+      for (int x in shares.keys) {
         lastX = x;
       }
 
@@ -120,6 +115,5 @@ void main() {
       List<int> retrievedSecret = ss.combineShares(shares);
       expect(secret, isNot(equals(retrievedSecret)));
     });
-
   });
 }

@@ -33,7 +33,6 @@ import 'utils/byte_helper.dart';
  * specifically with Shamir's Secret Sharing Scheme over GF(256).
  */
 class SecretScheme {
-
   /**
    * Random generator parameter
    */
@@ -58,22 +57,21 @@ class SecretScheme {
    * generating random values.
    */
   SecretScheme(this._numOfParts, this._threshold) {
+    if (_numOfParts < 2 || _numOfParts > 255) {
+      throw new ArgumentError('The number of parts cannot ' +
+          'be smaller than 2 or greater than 255');
+    }
 
-      if (_numOfParts < 2 || _numOfParts > 255){
-        throw new ArgumentError('The number of parts cannot ' +
-            'be smaller than 2 or greater than 255');
-      }
+    if (_threshold < 1) {
+      throw new ArgumentError('The threshold must be greater than 1');
+    }
 
-      if (_threshold < 1){
-        throw new ArgumentError('The threshold must be greater than 1');
-      }
+    if (_threshold > _numOfParts) {
+      throw new ArgumentError('The threshold must be equal or smaller than ' +
+          'the number of parts');
+    }
 
-      if (_threshold > _numOfParts){
-        throw new ArgumentError('The threshold must be equal or smaller than ' +
-            'the number of parts');
-      }
-
-      _generator = new Random.secure();
+    _generator = new Random.secure();
   }
 
   /**
@@ -101,8 +99,7 @@ class SecretScheme {
    * If the number of shares to generate is 2 and the secret is of length 4.
    */
   Map<int, List<int>> createShares(List<int> secret) {
-
-    if (secret == null || secret.length == 0){
+    if (secret == null || secret.length == 0) {
       throw new ArgumentError('Secret needs to have a length greater than 0.');
     }
 
@@ -121,7 +118,7 @@ class SecretScheme {
     List<int> randomXCoords = _generateNonCollidingValues(numOfParts);
 
     // Insert all x coordinates into the shares map.
-    for (int x in randomXCoords){
+    for (int x in randomXCoords) {
       shares[x] = new List(secret.length);
     }
 
@@ -130,7 +127,6 @@ class SecretScheme {
     // In addition, the degree for the polynomial is our threshold - 1.
     int degree = threshold - 1;
     for (int i = 0; i < secret.length; i++) {
-
       int currSecretVal = secret[i];
 
       // Instantiate the polynomial.
@@ -142,15 +138,13 @@ class SecretScheme {
 
       // Now iterate each x value, and get the corresponding y value and insert
       // into the list in the map.
-      for (int x in randomXCoords){
+      for (int x in randomXCoords) {
         shares[x][i] = currPoly.evaluateAtX(x);
       }
-
     }
 
     // We are done, return the map.
     return shares;
-
   }
 
   /**
@@ -162,7 +156,6 @@ class SecretScheme {
    * met, the returned values are just gibberish.
    */
   List<int> combineShares(Map<int, List<int>> shares) {
-
     if (shares == null) {
       throw new ArgumentError('Shares cannot be null.');
     }
@@ -173,7 +166,7 @@ class SecretScheme {
 
     // Check if x coordinates of the shares are bytes.
     for (int xCoord in shares.keys) {
-      if (ByteHelper.isNotByte(xCoord)){
+      if (ByteHelper.isNotByte(xCoord)) {
         throw new ArgumentError('Shares need to contain proper x coordinates.');
       }
     }
@@ -182,7 +175,6 @@ class SecretScheme {
     // Also save the length of the last y coords
     int lengthOfYCoords = 0;
     for (List<int> yCoords in shares.values) {
-
       if (yCoords == null || !ByteHelper.isListAllBytes(yCoords)) {
         throw new ArgumentError('Shares need to contain proper y coordiantes.');
       }
@@ -192,12 +184,10 @@ class SecretScheme {
 
     // Ensure all yCoords have the same length.
     for (List<int> yCoords in shares.values) {
-
-      if (yCoords.length != lengthOfYCoords){
-        throw new ArgumentError('Shares y coordinates need to have the same '
-            + 'length');
+      if (yCoords.length != lengthOfYCoords) {
+        throw new ArgumentError(
+            'Shares y coordinates need to have the same ' + 'length');
       }
-
     }
 
     // Done all the checks, now let's start reconstructing our secret.
@@ -206,13 +196,11 @@ class SecretScheme {
     List<int> secret = new List(lengthOfYCoords);
 
     for (int i = 0; i < secret.length; i++) {
-
       // Generate the points needed to lagrange interpolation.
       List<List<int>> pointsForCurrIdx = new List();
 
       // Go through each share and push the current point.
       for (int x in shares.keys) {
-
         List<int> currPoint = new List(2);
 
         // X coord
@@ -226,30 +214,23 @@ class SecretScheme {
 
       // Generate the current idx secret val.
       secret[i] = LagrangeInterpolation.getConstantValue(pointsForCurrIdx);
-
     }
 
     // Generated secret, return.
     return secret;
-
-
-
-
   }
 
   /**
    * Generates `amountToGenerate` distinct random byte values and returning
    * those.
    */
-  List<int> _generateNonCollidingValues(int amountToGenerate){
-
+  List<int> _generateNonCollidingValues(int amountToGenerate) {
     List<int> randomValues = new List(amountToGenerate);
 
     // Keep generating until we hit the count of 0.
     int randomVal;
     int currIdx = 0;
-    while(amountToGenerate > 0) {
-
+    while (amountToGenerate > 0) {
       randomVal = ByteHelper.generateRandomByte(_generator);
 
       // If we already have it, continue and regenerate.
@@ -261,12 +242,8 @@ class SecretScheme {
 
       amountToGenerate--;
       currIdx++;
-
     }
 
     return randomValues;
-
   }
-
-
 }

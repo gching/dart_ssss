@@ -25,10 +25,8 @@
 import 'package:test/test.dart';
 import 'package:dart_ssss/src/gf_256.dart';
 
-void main(){
-
+void main() {
   group('Adding and Subtracting', () {
-
     test('Adding two zeroes should return zero', () {
       expect(GF256.add(0, 0), equals(0));
     });
@@ -42,11 +40,9 @@ void main(){
       expect(GF256.add(255, 255), equals(0));
       expect(GF256.sub(255, 255), equals(0));
     });
-
   });
 
   group('Multiplication', () {
-
     test('Multiplying two zeroes should return zero', () {
       expect(GF256.multiply(0, 0), equals(0));
     });
@@ -56,7 +52,7 @@ void main(){
     });
 
     test('Multiplying with multiple operands should return the correct results',
-    () {
+        () {
       expect(GF256.multiply(0xb6, 0x53), equals(0x36));
     });
   });
@@ -69,6 +65,4 @@ void main(){
       expect(GF256.divide(0, 192), equals(0));
     });
   });
-
-
 }
