@@ -9,7 +9,4 @@ dart_task:
 - dartanalyzer: --fatal-warnings lib
 - dartfmt
 
-matrix:
-  exclude:
-  - dart: dev
-    dartfmt
+after_success: ./tools/coveralls.sh
