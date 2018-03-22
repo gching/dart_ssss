@@ -118,17 +118,12 @@ void main() {
     test('Should throw given a bad x coordinate', () {
       expect(() => _poly.evaluateAtX(-1), throwsArgumentError);
     });
-    
-    test('Should throw if not generated', () {
-      _poly = new BytePolynomial(5);
-      expect(() => _poly.evaluateAtX(5), throwsA(NotGeneratedException));
-    }, skip: 'Testing custom exception are still janky.');
 
     test('Should throw given that coefficients have not been generated', () {
       BytePolynomial _badPoly = new BytePolynomial(0);
-      expect(() => _badPoly.evaluateAtX(0),
-          throwsA(equals("NotGeneratedException")));
-    }, skip: 'Something is janky about testing exceptions');
+      expect(() => _badPoly.evaluateAtX(5),
+          throwsA(new isInstanceOf<NotGeneratedException>()));
+    });
 
     test('Should return the constant value given x = 0', () {
       expect(_poly.evaluateAtX(0), equals(1));

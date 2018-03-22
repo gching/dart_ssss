@@ -71,7 +71,7 @@ void main() {
 
       badXVal[256] = new List();
       badYVal[5] = null;
-      
+
       expect(() => ss.combineShares(null), throwsArgumentError);
       expect(() => ss.combineShares(empty), throwsArgumentError);
       expect(() => ss.combineShares(badXVal), throwsArgumentError);
