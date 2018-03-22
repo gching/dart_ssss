@@ -12,4 +12,4 @@ dart_task:
 matrix:
   exclude:
   - dart: dev
-    env: TRAVIS_DART_FORMAT=true
+    dartfmt: true
