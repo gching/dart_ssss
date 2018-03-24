@@ -12,4 +12,4 @@ dart_task:
 - dartanalyzer: --fatal-warnings lib
 - dartfmt
 
-after_success: ./tools/coveralls.sh
+after_success: ./tool/coveralls.sh
