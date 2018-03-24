@@ -1,7 +1,7 @@
 language: dart
 
 before_install:
-  - chmod +x ./tools/coveralls.sh
+  - chmod +x ./tool/coveralls.sh
 
 dart:
 - stable
