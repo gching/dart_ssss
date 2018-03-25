@@ -22,11 +22,11 @@
  * THE SOFTWARE.
  */
 
-import 'dart:math';
 import 'dart:collection';
 import 'lagrange_interpolation.dart';
 import 'byte_polynomial.dart';
 import 'utils/byte_helper.dart';
+import 'utils/byte_random.dart';
 
 /**
  * Public facing class that implements the logic for secret sharing,
@@ -34,9 +34,9 @@ import 'utils/byte_helper.dart';
  */
 class SecretScheme {
   /**
-   * Random generator parameter
+   * Random byte generator parameter
    */
-  Random _generator;
+  ByteRandom _generator;
 
   /**
    * Indicates the number of parts to generate when splitting a secret.
@@ -57,21 +57,20 @@ class SecretScheme {
    * generating random values.
    */
   SecretScheme(this._numOfParts, this._threshold) {
-    if (_numOfParts < 2 || _numOfParts > 255) {
-      throw new ArgumentError('The number of parts cannot ' +
-          'be smaller than 2 or greater than 255');
-    }
+    _checkInstanceValues();
+    _generator = new ByteRandom();
+  }
 
-    if (_threshold < 1) {
-      throw new ArgumentError('The threshold must be greater than 1');
+  /**
+   * Constructor for also providing the generator. Mainly used for tests. This
+   * should not be used.
+   */
+  SecretScheme.withGenerator(
+      this._numOfParts, this._threshold, this._generator) {
+    _checkInstanceValues();
+    if (_generator == null) {
+      throw new ArgumentError('Generator cannot be null.');
     }
-
-    if (_threshold > _numOfParts) {
-      throw new ArgumentError('The threshold must be equal or smaller than ' +
-          'the number of parts');
-    }
-
-    _generator = new Random.secure();
   }
 
   /**
@@ -231,7 +230,7 @@ class SecretScheme {
     int randomVal;
     int currIdx = 0;
     while (amountToGenerate > 0) {
-      randomVal = ByteHelper.generateRandomByte(_generator);
+      randomVal = _generator.nextByte();
 
       // If we already have it, continue and regenerate.
       if (randomValues.contains(randomVal)) {
@@ -239,7 +238,6 @@ class SecretScheme {
       }
 
       // If the value is equal to 0, continue and regenerate.
-      // TODO - test this.
       if (randomVal == 0) {
         continue;
       }
@@ -251,5 +249,25 @@ class SecretScheme {
     }
 
     return randomValues;
+  }
+
+  /**
+   * Assists in checking the threshold and number of parts. Will throw if
+   * they are not supported.
+   */
+  void _checkInstanceValues() {
+    if (_numOfParts < 2 || _numOfParts > 255) {
+      throw new ArgumentError('The number of parts cannot ' +
+          'be smaller than 2 or greater than 255');
+    }
+
+    if (_threshold < 1) {
+      throw new ArgumentError('The threshold must be greater than 1');
+    }
+
+    if (_threshold > _numOfParts) {
+      throw new ArgumentError('The threshold must be equal or smaller than ' +
+          'the number of parts');
+    }
   }
 }

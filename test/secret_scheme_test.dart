@@ -24,7 +24,11 @@
 
 import 'dart:collection';
 import 'package:test/test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:dart_ssss/src/secret_scheme.dart';
+import 'package:dart_ssss/src/utils/byte_random.dart';
+
+class MockByteRandom extends Mock implements ByteRandom {}
 
 void main() {
   group('Instantiation', () {
@@ -40,10 +44,26 @@ void main() {
       expect(ss.numOfParts, equals(3));
       expect(ss.threshold, equals(2));
     });
+
+    test('Should throw if generator is bad', () {
+      expect(() => new SecretScheme.withGenerator(3, 2, null),
+          throwsArgumentError);
+    });
   });
 
   List<int> secret = [5, 3, 4, 2, 1];
-  SecretScheme ss = new SecretScheme(3, 2);
+  ByteRandom mockByteRandom = new MockByteRandom();
+  SecretScheme ss = new SecretScheme.withGenerator(3, 2, mockByteRandom);
+
+  List<int> fakeBytes = [0, 1, 2, 3];
+  when(mockByteRandom.nextByte()).thenAnswer((_) {
+    if (fakeBytes.length == 0) {
+      return 5;
+    }
+
+    return fakeBytes.removeAt(0);
+  });
+
   Map<int, List<int>> shares = ss.createShares(secret);
 
   group('Creating shares for secret', () {
@@ -60,6 +80,10 @@ void main() {
       for (List<int> share in shares.values) {
         expect(share.length, equals(secret.length));
       }
+    });
+
+    test('Should not ever generate a 0 x coordinate share', () {
+      expect(shares.containsKey(0), isFalse);
     });
   });
 

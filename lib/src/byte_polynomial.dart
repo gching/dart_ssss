@@ -22,9 +22,9 @@
  * THE SOFTWARE.
  */
 
-import 'dart:math';
 import 'gf_256.dart';
 import 'utils/byte_helper.dart';
+import 'utils/byte_random.dart';
 
 /**
  * Class that holds a polynomial represented by unsigned byte coefficients.
@@ -92,7 +92,7 @@ class BytePolynomial {
    * the previous secret values will be lost.
    * The passed in random will be utilized to generate the values.
    */
-  void generateCoefficientsDangerously(int constantVal, Random gen) {
+  void generateCoefficientsDangerously(int constantVal, ByteRandom gen) {
     if (constantVal > 255 || constantVal < 0) {
       throw new ArgumentError("The constant value must be byte representable");
     }
@@ -198,12 +198,12 @@ class BytePolynomial {
   /**
    * Returns a random value between 0 - 255.
    */
-  int _generateRandomByteVal(Random gen) {
+  int _generateRandomByteVal(ByteRandom gen) {
     if (gen == null) {
       throw new ArgumentError("Gen cannot be null");
     }
 
-    return ByteHelper.generateRandomByte(gen);
+    return gen.nextByte();
   }
 }
 

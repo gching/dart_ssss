@@ -22,8 +22,6 @@
  * THE SOFTWARE.
  */
 
-import 'dart:math';
-
 /**
  * Class that provides methods to help with bytes.
  */
@@ -60,18 +58,5 @@ class ByteHelper {
    */
   static bool isNotByte(int val) {
     return !isByte(val);
-  }
-
-  /**
-   * Returns a random value between 0 - 255.
-   */
-  static int generateRandomByte(Random generator) {
-    if (generator == null) {
-      throw new ArgumentError('Generator cannot be null');
-    }
-
-    // We set 256 to be the max as it is exclusive
-    // https://api.dartlang.org/stable/1.24.3/dart-math/Random/nextInt.html
-    return generator.nextInt(256);
   }
 }

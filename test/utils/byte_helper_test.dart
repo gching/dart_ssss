@@ -44,10 +44,4 @@ void main() {
       expect(ByteHelper.isListAllBytes(notBytes), isFalse);
     });
   });
-
-  group('Random generation', () {
-    test('Should throw if generator is null', () {
-      expect(() => ByteHelper.generateRandomByte(null), throwsArgumentError);
-    });
-  });
 }

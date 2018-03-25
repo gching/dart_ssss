@@ -13,3 +13,8 @@
 
 - Fix issue of possibly return a `0` x coordinate as a share.
 - Add in branches of code to ensure that it will be tested later on (lowering coverage).
+
+## 0.0.4
+
+- Remove random byte method from ByteHelper and create ByteRandom singleton to be used to generate random bytes.
+- Add mocks to tests to properly test edge cases involving specific random bytes.

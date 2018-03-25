@@ -22,9 +22,12 @@
  * THE SOFTWARE.
  */
 
-import 'dart:math';
 import 'package:test/test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:dart_ssss/src/byte_polynomial.dart';
+import 'package:dart_ssss/src/utils/byte_random.dart';
+
+class MockByteRandom extends Mock implements ByteRandom {}
 
 void main() {
   group('Base Constructor', () {
@@ -85,7 +88,7 @@ void main() {
   group('Generating Coefficients', () {
     BytePolynomial _zeroDegreePoly = new BytePolynomial(0);
     BytePolynomial _oneDegreePoly = new BytePolynomial(1);
-    Random secure = new Random.secure();
+    ByteRandom secure = new MockByteRandom();
 
     test('Should throw an error if the arguements are not byte or null', () {
       expect(() => _zeroDegreePoly.generateCoefficientsDangerously(-1, secure),
@@ -99,14 +102,20 @@ void main() {
       expect(_zeroDegreePoly.coefficientsList.length, equals(1));
       expect(_zeroDegreePoly.constantAtZero, equals(5));
       expect(_zeroDegreePoly.isGenerated, isTrue);
+      verifyNever(secure.nextByte());
     });
 
     test('Should generate coefficents if degree is 1', () {
+      List<int> randomCoeff = [0, 1];
+      when(secure.nextByte()).thenAnswer((_) => randomCoeff.removeAt(0));
+
       _oneDegreePoly.generateCoefficientsDangerously(5, secure);
       expect(_oneDegreePoly.coefficientsList.length, equals(2));
+      expect(_oneDegreePoly.coefficientsList[1], equals(1));
       expect(_oneDegreePoly.constantAtZero, equals(5));
       expect(_oneDegreePoly.isGenerated, isTrue);
       expect(_oneDegreePoly.coefficientsList[1] > 0, isTrue);
+      verify(secure.nextByte()).called(2);
     });
   });
 

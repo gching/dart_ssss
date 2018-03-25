@@ -1,6 +1,6 @@
 name: dart_ssss
 description: A Dart library that implements Shamir's Secret Sharing Scheme over GF(256).
-version: 0.0.3
+version: 0.0.4
 homepage: https://www.github.com/gching/dart_ssss
 author: Gavin Ching <gavinchingy@gmail.com>
 
@@ -9,3 +9,4 @@ environment:
 
 dev_dependencies:
   test: ^0.12.0
+  mockito: any
