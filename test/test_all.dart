@@ -27,6 +27,7 @@ import 'gf_256_test.dart' as gf_256;
 import 'lagrange_interpolation_test.dart' as lagrange_interpolation;
 import 'secret_scheme_test.dart' as secret_scheme;
 import 'utils/byte_helper_test.dart' as byte_helper;
+import 'utils/byte_random_test.dart' as byte_random;
 
 void main() {
   byte_polynomial.main();
@@ -34,4 +35,5 @@ void main() {
   lagrange_interpolation.main();
   secret_scheme.main();
   byte_helper.main();
+  byte_random.main();
 }
