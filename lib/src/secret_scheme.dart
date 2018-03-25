@@ -113,9 +113,9 @@ class SecretScheme {
     Map<int, List<int>> shares = new HashMap();
 
     // Generate random x values, and ensure that we do not collide with another
-    // x value. The number of x values we generate are according to the
-    // the number shares we want to generate.
-    List<int> randomXCoords = _generateNonCollidingValues(numOfParts);
+    // x value and is not zero. The number of x values we generate are according
+    // to the number of shares we want to generate.
+    List<int> randomXCoords = _generateNonCollidingValuesNotZero(numOfParts);
 
     // Insert all x coordinates into the shares map.
     for (int x in randomXCoords) {
@@ -222,9 +222,9 @@ class SecretScheme {
 
   /**
    * Generates `amountToGenerate` distinct random byte values and returning
-   * those.
+   * those. However, none of the distinct random byte values can be zero.
    */
-  List<int> _generateNonCollidingValues(int amountToGenerate) {
+  List<int> _generateNonCollidingValuesNotZero(int amountToGenerate) {
     List<int> randomValues = new List(amountToGenerate);
 
     // Keep generating until we hit the count of 0.
@@ -235,6 +235,12 @@ class SecretScheme {
 
       // If we already have it, continue and regenerate.
       if (randomValues.contains(randomVal)) {
+        continue;
+      }
+
+      // If the value is equal to 0, continue and regenerate.
+      // TODO - test this.
+      if (randomVal == 0) {
         continue;
       }
 
