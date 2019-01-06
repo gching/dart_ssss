@@ -18,14 +18,14 @@ class ByteRandom {
   /**
    * Default constructor.
    */
-  ByteRandom() : _generator = new Random.secure() {}
+  ByteRandom() : _generator = Random.secure() {}
 
   /**
    * Constructor for setting the generator.
    */
   ByteRandom.withGenerator(this._generator) {
     if (_generator == null) {
-      throw new ArgumentError('Generator cannot be null.');
+      throw ArgumentError('Generator cannot be null.');
     }
   }
 

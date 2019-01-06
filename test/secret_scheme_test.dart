@@ -33,27 +33,26 @@ class MockByteRandom extends Mock implements ByteRandom {}
 void main() {
   group('Instantiation', () {
     test('Should throw if improper values are passed in as arguments', () {
-      expect(() => new SecretScheme(1, 1), throwsArgumentError);
-      expect(() => new SecretScheme(256, 1), throwsArgumentError);
-      expect(() => new SecretScheme(2, 0), throwsArgumentError);
-      expect(() => new SecretScheme(2, 3), throwsArgumentError);
+      expect(() => SecretScheme(1, 1), throwsArgumentError);
+      expect(() => SecretScheme(256, 1), throwsArgumentError);
+      expect(() => SecretScheme(2, 0), throwsArgumentError);
+      expect(() => SecretScheme(2, 3), throwsArgumentError);
     });
 
     test('Should return back the proper values', () {
-      SecretScheme ss = new SecretScheme(3, 2);
+      SecretScheme ss = SecretScheme(3, 2);
       expect(ss.numOfParts, equals(3));
       expect(ss.threshold, equals(2));
     });
 
     test('Should throw if generator is bad', () {
-      expect(() => new SecretScheme.withGenerator(3, 2, null),
-          throwsArgumentError);
+      expect(() => SecretScheme.withGenerator(3, 2, null), throwsArgumentError);
     });
   });
 
   List<int> secret = [5, 3, 4, 2, 1];
-  ByteRandom mockByteRandom = new MockByteRandom();
-  SecretScheme ss = new SecretScheme.withGenerator(3, 2, mockByteRandom);
+  ByteRandom mockByteRandom = MockByteRandom();
+  SecretScheme ss = SecretScheme.withGenerator(3, 2, mockByteRandom);
 
   List<int> fakeBytes = [0, 1, 2, 3];
   when(mockByteRandom.nextByte()).thenAnswer((_) {
@@ -68,7 +67,7 @@ void main() {
 
   group('Creating shares for secret', () {
     test('Should throw with bad secret', () {
-      expect(() => ss.createShares(new List()), throwsArgumentError);
+      expect(() => ss.createShares(List()), throwsArgumentError);
       expect(() => ss.createShares([256]), throwsArgumentError);
     });
 
@@ -89,11 +88,11 @@ void main() {
 
   group('Joining secret', () {
     test('Should throw with bad shares', () {
-      Map<int, List<int>> empty = new HashMap();
-      Map<int, List<int>> badXVal = new HashMap();
-      Map<int, List<int>> badYVal = new HashMap();
+      Map<int, List<int>> empty = HashMap();
+      Map<int, List<int>> badXVal = HashMap();
+      Map<int, List<int>> badYVal = HashMap();
 
-      badXVal[256] = new List();
+      badXVal[256] = List();
       badYVal[5] = null;
 
       expect(() => ss.combineShares(null), throwsArgumentError);

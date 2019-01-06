@@ -36,7 +36,7 @@ class LagrangeInterpolation {
    */
   static int getConstantValue(List<List<int>> points) {
     if (!_isValidPoints(points)) {
-      throw new ArgumentError('The provided points needs to be valid.');
+      throw ArgumentError('The provided points needs to be valid.');
     }
 
     // Set x to be 0 as we want to find f(0);

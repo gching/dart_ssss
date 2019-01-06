@@ -877,7 +877,7 @@ class GF256 {
    */
   static void throwIfNotUnsignedByte(int possibleVal) {
     if (ByteHelper.isNotByte(possibleVal)) {
-      throw new ArgumentError.value(possibleVal);
+      throw ArgumentError.value(possibleVal);
     }
   }
 }
