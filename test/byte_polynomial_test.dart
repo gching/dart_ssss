@@ -31,7 +31,7 @@ class MockByteRandom extends Mock implements ByteRandom {}
 
 void main() {
   group('Base Constructor', () {
-    BytePolynomial _poly = new BytePolynomial(0);
+    BytePolynomial _poly = BytePolynomial(0);
 
     test('Should have a degree of 0', () {
       expect(_poly.degree, equals(0));
@@ -54,14 +54,14 @@ void main() {
     List<int> allGood = [6, 1, 1];
 
     test('Should throw exception if the coefficients are bad', () {
-      expect(() => new BytePolynomial.fromCoefficients(zeroEles),
-          throwsArgumentError);
-      expect(() => new BytePolynomial.fromCoefficients(badOneEles),
+      expect(
+          () => BytePolynomial.fromCoefficients(zeroEles), throwsArgumentError);
+      expect(() => BytePolynomial.fromCoefficients(badOneEles),
           throwsArgumentError);
     });
 
     test('Should be correct for one element', () {
-      BytePolynomial _poly = new BytePolynomial.fromCoefficients(oneEles);
+      BytePolynomial _poly = BytePolynomial.fromCoefficients(oneEles);
 
       expect(_poly.degree, equals(0));
       expect(_poly.isGenerated, isTrue);
@@ -70,15 +70,14 @@ void main() {
     });
 
     test('Should contain the correct polynomial represented by an end 0', () {
-      BytePolynomial _poly =
-          new BytePolynomial.fromCoefficients(middleEleNotZero);
+      BytePolynomial _poly = BytePolynomial.fromCoefficients(middleEleNotZero);
 
       expect(_poly.degree, equals(1));
       expect(_poly.constantAtZero, equals(5));
     });
 
     test('Should be correct degree where last element isnt 0', () {
-      BytePolynomial _poly = new BytePolynomial.fromCoefficients(allGood);
+      BytePolynomial _poly = BytePolynomial.fromCoefficients(allGood);
 
       expect(_poly.degree, equals(2));
       expect(_poly.constantAtZero, equals(6));
@@ -86,9 +85,9 @@ void main() {
   });
 
   group('Generating Coefficients', () {
-    BytePolynomial _zeroDegreePoly = new BytePolynomial(0);
-    BytePolynomial _oneDegreePoly = new BytePolynomial(1);
-    ByteRandom secure = new MockByteRandom();
+    BytePolynomial _zeroDegreePoly = BytePolynomial(0);
+    BytePolynomial _oneDegreePoly = BytePolynomial(1);
+    ByteRandom secure = MockByteRandom();
 
     test('Should throw an error if the arguements are not byte or null', () {
       expect(() => _zeroDegreePoly.generateCoefficientsDangerously(-1, secure),
@@ -122,14 +121,14 @@ void main() {
   group('Fetching coordinates', () {
     // 3^x3 + 2x^2 + 1
     List<int> _coeff = [1, 0, 2, 3];
-    BytePolynomial _poly = new BytePolynomial.fromCoefficients(_coeff);
+    BytePolynomial _poly = BytePolynomial.fromCoefficients(_coeff);
 
     test('Should throw given a bad x coordinate', () {
       expect(() => _poly.evaluateAtX(-1), throwsArgumentError);
     });
 
     test('Should throw given that coefficients have not been generated', () {
-      BytePolynomial _badPoly = new BytePolynomial(0);
+      BytePolynomial _badPoly = BytePolynomial(0);
       expect(() => _badPoly.evaluateAtX(5),
           throwsA(const TypeMatcher<NotGeneratedException>()));
     });

@@ -35,7 +35,7 @@ class BytePolynomial {
 
   // Holds the coefficients of the polynomial where index 0 is f(0) and index
   // index[coefficients.length - 1] is the highest degree coefficient.
-  List<int> _coefficients = new List();
+  List<int> _coefficients = List();
 
   // Holds the degree of the polynomial represented where 0 would mean just
   // a single value.
@@ -45,12 +45,12 @@ class BytePolynomial {
 
   BytePolynomial.fromCoefficients(List<int> coefficients) {
     if (coefficients == null || coefficients.length == 0) {
-      throw new ArgumentError("Coefficients cannot be empty or null");
+      throw ArgumentError("Coefficients cannot be empty or null");
     }
 
     // Check to see if the coefficients are byte values.
     if (!_checkIfCoefficientsAreBytes(coefficients)) {
-      throw new ArgumentError("Coefficients must be represented in bytes");
+      throw ArgumentError("Coefficients must be represented in bytes");
     }
 
     // Valid coefficients, let's set the degree and the coefficients
@@ -63,7 +63,7 @@ class BytePolynomial {
     this._coefficientsGenerated = true;
 
     // Make a copy of the coefficients.
-    this._coefficients = new List.from(coefficients, growable: false);
+    this._coefficients = List.from(coefficients, growable: false);
   }
 
   // Getter for the degree represented by the polynomial
@@ -83,7 +83,7 @@ class BytePolynomial {
   /**
    * Returns a copy of the coefficients of the current instance.
    */
-  List<int> get coefficientsList => new List.from(_coefficients);
+  List<int> get coefficientsList => List.from(_coefficients);
 
   /**
    * Assists in generating the coefficients for the current instance.
@@ -94,16 +94,16 @@ class BytePolynomial {
    */
   void generateCoefficientsDangerously(int constantVal, ByteRandom gen) {
     if (constantVal > 255 || constantVal < 0) {
-      throw new ArgumentError("The constant value must be byte representable");
+      throw ArgumentError("The constant value must be byte representable");
     }
 
     if (gen == null) {
-      throw new ArgumentError("Gen cannot be null");
+      throw ArgumentError("Gen cannot be null");
     }
 
     // Initialize our coefficients given the degree where the length is
     // degree + 1;
-    _coefficients = new List(_degree + 1);
+    _coefficients = List(_degree + 1);
 
     // Now we set our constant value to be at index 0 (f(0)).
     _coefficients[0] = constantVal;
@@ -132,12 +132,12 @@ class BytePolynomial {
    */
   int evaluateAtX(int xCoord) {
     if (xCoord > 255 || xCoord < 0) {
-      throw new ArgumentError("xCoord must be byte representable.");
+      throw ArgumentError("xCoord must be byte representable.");
     }
 
     // TODO - throw right error.
     if (_coefficientsGenerated == false) {
-      throw new NotGeneratedException();
+      throw NotGeneratedException();
     }
 
     // If x = 0, return constant value.
@@ -200,7 +200,7 @@ class BytePolynomial {
    */
   int _generateRandomByteVal(ByteRandom gen) {
     if (gen == null) {
-      throw new ArgumentError("Gen cannot be null");
+      throw ArgumentError("Gen cannot be null");
     }
 
     return gen.nextByte();
