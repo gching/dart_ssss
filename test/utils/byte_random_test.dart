@@ -14,7 +14,7 @@ class MockRandom extends Mock implements Random {}
 void main() {
   group('Instantiation', () {
     test('Should not throw if using default constructor', () {
-      ByteRandom byteRandom = new ByteRandom();
+      ByteRandom();
       expect(true, isTrue);
     });
 

@@ -131,7 +131,7 @@ void main() {
     test('Should throw given that coefficients have not been generated', () {
       BytePolynomial _badPoly = new BytePolynomial(0);
       expect(() => _badPoly.evaluateAtX(5),
-          throwsA(new isInstanceOf<NotGeneratedException>()));
+          throwsA(const TypeMatcher<NotGeneratedException>()));
     });
 
     test('Should return the constant value given x = 0', () {
