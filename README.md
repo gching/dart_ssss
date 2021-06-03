@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/gching/dart_ssss/badge.svg?branch=master)](https://coveralls.io/github/gching/dart_ssss?branch=master)
 
 A Dart library that implements [Shamir's Secret Sharing Scheme](https://en.wikipedia.org/wiki/Shamir%27s_Secret_Sharing) 
-over [GF(256)](http://www.cs.utsa.edu/~wagner/laws/FFM.html).
+over [GF(256)](https://web.archive.org/web/20200210045659/http://www.cs.utsa.edu/~wagner/laws/FFM.html).
 
 Given a secret in bytes, this package can assist in splitting up the secret into `n` parts and would be able to 
 reconstruct the secret in bytes given a `t` threshold.
