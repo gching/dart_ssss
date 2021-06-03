@@ -35,16 +35,16 @@ class BytePolynomial {
 
   // Holds the coefficients of the polynomial where index 0 is f(0) and index
   // index[coefficients.length - 1] is the highest degree coefficient.
-  List<int> _coefficients = List();
+  List<int> _coefficients = [];
 
   // Holds the degree of the polynomial represented where 0 would mean just
   // a single value.
-  int _degree;
+  int _degree = 0;
 
-  BytePolynomial(this._degree);
+  BytePolynomial(int _degree) : _degree = _degree;
 
   BytePolynomial.fromCoefficients(List<int> coefficients) {
-    if (coefficients == null || coefficients.length == 0) {
+    if (coefficients.length == 0) {
       throw ArgumentError("Coefficients cannot be empty or null");
     }
 
@@ -97,13 +97,9 @@ class BytePolynomial {
       throw ArgumentError("The constant value must be byte representable");
     }
 
-    if (gen == null) {
-      throw ArgumentError("Gen cannot be null");
-    }
-
     // Initialize our coefficients given the degree where the length is
     // degree + 1;
-    _coefficients = List(_degree + 1);
+    _coefficients = List.filled(_degree + 1, -1);
 
     // Now we set our constant value to be at index 0 (f(0)).
     _coefficients[0] = constantVal;
@@ -161,7 +157,7 @@ class BytePolynomial {
    * in a byte (unsigned).
    */
   bool _checkIfCoefficientsAreBytes(List<int> coefficients) {
-    if (coefficients == null || coefficients.length == 0) {
+    if (coefficients.length == 0) {
       return false;
     }
 
@@ -173,7 +169,7 @@ class BytePolynomial {
    * Returns -1 if the coefficients passed in are invalid.
    */
   int _getDegreeFromCoefficients(List<int> coefficients) {
-    if (coefficients == null || coefficients.length == 0) {
+    if (coefficients.length == 0) {
       return -1;
     }
 
@@ -199,10 +195,6 @@ class BytePolynomial {
    * Returns a random value between 0 - 255.
    */
   int _generateRandomByteVal(ByteRandom gen) {
-    if (gen == null) {
-      throw ArgumentError("Gen cannot be null");
-    }
-
     return gen.nextByte();
   }
 }

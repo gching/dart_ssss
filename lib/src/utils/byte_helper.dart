@@ -31,11 +31,6 @@ class ByteHelper {
    * unsigned byte value (0-255).
    */
   static bool isListAllBytes(List<int> vals) {
-    // If it is null, return false.
-    if (vals == null) {
-      return false;
-    }
-
     // If any of the values in the list is not a byte, return false.
     if (vals.any(isNotByte)) {
       return false;

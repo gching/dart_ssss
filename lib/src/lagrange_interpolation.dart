@@ -80,16 +80,12 @@ class LagrangeInterpolation {
    * Helper method to ensure that the points are valid.
    */
   static bool _isValidPoints(List<List<int>> points) {
-    if (points == null || points.length == 0) {
+    if (points.length == 0) {
       return false;
     }
 
     for (int i = 0; i < points.length; i++) {
       List<int> currPoint = points[i];
-
-      if (currPoint == null) {
-        return false;
-      }
 
       if (currPoint.length != 2) {
         return false;
