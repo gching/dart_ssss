@@ -2,6 +2,9 @@ language: dart
 
 before_install:
   - chmod +x ./tool/coveralls.sh
+  
+before_script:
+  - pub run build_runner build
 
 dart:
 - stable
