@@ -23,10 +23,7 @@ class ByteRandom {
   /**
    * Constructor for setting the generator.
    */
-  ByteRandom.withGenerator(this._generator) {
-    if (_generator == null) {
-      throw ArgumentError('Generator cannot be null.');
-    }
+  ByteRandom.withGenerator(Random _generator) : _generator = _generator {
   }
 
   /**

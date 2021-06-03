@@ -26,8 +26,7 @@ import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:dart_ssss/src/byte_polynomial.dart';
 import 'package:dart_ssss/src/utils/byte_random.dart';
-
-class MockByteRandom extends Mock implements ByteRandom {}
+import 'shared_mocks.mocks.dart';
 
 void main() {
   group('Base Constructor', () {
@@ -91,8 +90,6 @@ void main() {
 
     test('Should throw an error if the arguements are not byte or null', () {
       expect(() => _zeroDegreePoly.generateCoefficientsDangerously(-1, secure),
-          throwsArgumentError);
-      expect(() => _zeroDegreePoly.generateCoefficientsDangerously(5, null),
           throwsArgumentError);
     });
 

@@ -28,20 +28,10 @@ import 'package:dart_ssss/src/lagrange_interpolation.dart';
 void main() {
   group('Calculate constant from points', () {
     test('Should through if points are bad', () {
-      List<List<int>> badPointNull = [null];
-      List<List<int>> badPointNotVector = [
-        [null]
-      ];
       List<List<int>> badPointNotBytes = [
         [-1, -1]
       ];
 
-      expect(() => LagrangeInterpolation.getConstantValue(null),
-          throwsArgumentError);
-      expect(() => LagrangeInterpolation.getConstantValue(badPointNull),
-          throwsArgumentError);
-      expect(() => LagrangeInterpolation.getConstantValue(badPointNotVector),
-          throwsArgumentError);
       expect(() => LagrangeInterpolation.getConstantValue(badPointNotBytes),
           throwsArgumentError);
     });

@@ -7,19 +7,18 @@
 import 'package:dart_ssss/src/utils/byte_random.dart';
 import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
+import 'package:mockito/annotations.dart';
 import 'dart:math';
 
-class MockRandom extends Mock implements Random {}
+import 'byte_random_test.mocks.dart';
+
+@GenerateMocks([Random])
 
 void main() {
   group('Instantiation', () {
     test('Should not throw if using default constructor', () {
       ByteRandom();
       expect(true, isTrue);
-    });
-
-    test('Should throw error if a null generator is passed in.', () {
-      expect(() => ByteRandom.withGenerator(null), throwsArgumentError);
     });
   });
 

@@ -27,8 +27,7 @@ import 'package:test/test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:dart_ssss/src/secret_scheme.dart';
 import 'package:dart_ssss/src/utils/byte_random.dart';
-
-class MockByteRandom extends Mock implements ByteRandom {}
+import 'shared_mocks.mocks.dart';
 
 void main() {
   group('Instantiation', () {
@@ -43,10 +42,6 @@ void main() {
       SecretScheme ss = SecretScheme(3, 2);
       expect(ss.numOfParts, equals(3));
       expect(ss.threshold, equals(2));
-    });
-
-    test('Should throw if generator is bad', () {
-      expect(() => SecretScheme.withGenerator(3, 2, null), throwsArgumentError);
     });
   });
 
@@ -67,7 +62,7 @@ void main() {
 
   group('Creating shares for secret', () {
     test('Should throw with bad secret', () {
-      expect(() => ss.createShares(List()), throwsArgumentError);
+      expect(() => ss.createShares([]), throwsArgumentError);
       expect(() => ss.createShares([256]), throwsArgumentError);
     });
 
@@ -92,13 +87,10 @@ void main() {
       Map<int, List<int>> badXVal = HashMap();
       Map<int, List<int>> badYVal = HashMap();
 
-      badXVal[256] = List();
-      badYVal[5] = null;
+      badXVal[256] = [];
 
-      expect(() => ss.combineShares(null), throwsArgumentError);
       expect(() => ss.combineShares(empty), throwsArgumentError);
       expect(() => ss.combineShares(badXVal), throwsArgumentError);
-      expect(() => ss.combineShares(badYVal), throwsArgumentError);
 
       // Bad Y values
       badYVal[5] = [-1];
